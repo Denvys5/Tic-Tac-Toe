@@ -1,9 +1,9 @@
-package Tic-Tac-Toy;
+package tictactoe;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Tic-Tac-Toy {
+public class TicTacToe {
 	public static void main(String[] args){
 		Scanner scanner = new Scanner(System.in);
 		int[][] a = new int[3][3];
