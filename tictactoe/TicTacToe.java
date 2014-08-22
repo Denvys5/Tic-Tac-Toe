@@ -4,13 +4,24 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TicTacToe {
+	public static final Scanner scanner = new Scanner(System.in);
+	public static String string1;
 	public static void main(String[] args){
-		Scanner scanner = new Scanner(System.in);
 		int[][] a = new int[3][3];
-		System.out.println("Rules: First player = 1; Second player = 2; Empty space = 0. Please, don`t use another symbols");
-		//Turn 1
-		System.out.println("Player 1 turn");
-		//Field Render
+		System.out.println("Rules: First player = 1; Second player = 2; Empty space = 0.");
+		System.out.println("Please, don`t use another symbols.");
+		turn(1, a, 1);
+		turn(2, a, 2);
+		turn(1, a, 3);
+		turn(2, a, 4);
+		turn(1, a, 5);
+		turn(2, a, 6);
+		turn(1, a, 7);
+		turn(2, a, 8);
+		turn(1, a, 9);
+	}
+
+	public static void fieldRenderer(int[][] a){
 		System.out.println("  |0|1|2|");
 		System.out.println("  _______");
 		System.out.println("0||" + a[0][0] + "|" + a[1][0] + "|" + a[2][0] + "|");
@@ -19,15 +30,57 @@ public class TicTacToe {
 		System.out.println("  _______");
 		System.out.println("2||" + a[0][2] + "|" + a[1][2] + "|" + a[2][2] + "|");
 		System.out.println("  _______");
+	}
+	
+	public static void checkForWin(int[][] a, int player){
+		if(a[0][0] == player && a[0][1] == player && a[0][2] == player){
+			System.out.println("Player " + player + " has won the game!");
+			fieldRenderer(a);
+			System.exit(0); 
+		}else if(a[1][0] == player && a[1][1] == player && a[1][2] == player){
+			System.out.println("Player " + player + " has won the game!");
+			fieldRenderer(a);
+			System.exit(0);
+		}else if(a[2][0] == player && a[2][1] == player && a[2][2] == player){
+			System.out.println("Player " + player + " has won the game!");
+			fieldRenderer(a);
+			System.exit(0);
+		}else if(a[0][0] == player && a[1][0] == player && a[2][0] == player){
+			System.out.println("Player " + player + " has won the game!");
+			fieldRenderer(a);
+			System.exit(0);
+		}else if(a[0][1] == player && a[1][1] == player && a[2][1] == player){
+			System.out.println("Player " + player + " has won the game!");
+			fieldRenderer(a);
+			System.exit(0);
+		}else if(a[0][2] == player && a[1][2] == player && a[2][2] == player){
+			System.out.println("Player " + player + " has won the game!");
+			fieldRenderer(a);
+			System.exit(0);
+		}else if(a[0][0] == player && a[1][1] == player && a[2][2] == player){
+			System.out.println("Player " + player + " has won the game!");
+			fieldRenderer(a);
+			System.exit(0);
+		}else if(a[2][0] == player && a[1][1] == player && a[0][2] == player){
+			System.out.println("Player " + player + " has won the game!");
+			fieldRenderer(a);
+			System.exit(0);
+		}
+	}
+	
+	public static void turn(int player, int[][] a, int turnNumber){
+		System.out.println("Player " + player + " turn");
+		//Field Render
+		fieldRenderer(a);
 		//Scan Args
 		System.out.println("Write X and Y coords");
-		String string1 = scanner.nextLine();
+		string1 = scanner.nextLine();
 		int arg1 = string1.charAt(0) - 48;
 		int arg2 = string1.charAt(1) - 48;
 		System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
 		//Check slot
 		if(a[arg1][arg2] == 0){
-			a[arg1][arg2] = 1;
+			a[arg1][arg2] = player;
 		}else{
 			System.out.println("This coords already owned, choose another coords ");
 			string1 = scanner.nextLine();
@@ -35,505 +88,23 @@ public class TicTacToe {
 			arg2 = string1.charAt(1) - 48;
 			System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
 			if(a[arg1][arg2] == 0){
-				a[arg1][arg2] = 1;
+				a[arg1][arg2] = player;
 			}else{
-				System.out.println("You lose your turn.");
+				System.out.println("You lose your turn. Game is broken.");
+				System.exit(0);
 			}
 		}
-		//Win params player 1
-		if(a[0][0] == 1 && a[0][1] == 1 && a[0][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0); 
-		}else if(a[1][0] == 1 && a[1][1] == 1 && a[1][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 1 && a[2][1] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 1 && a[1][0] == 1 && a[2][0] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][1] == 1 && a[1][1] == 1 && a[2][1] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][2] == 1 && a[1][2] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 1 && a[1][1] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 1 && a[1][1] == 1 && a[0][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
+		//Win params
+		if(turnNumber >= 5){
+			checkForWin(a, player);
 		}
-		//Turn 2
-		System.out.println("Player 2 turn");
-		//Field Render
-		System.out.println("  |0|1|2|");
-		System.out.println("  _______");
-		System.out.println("0||" + a[0][0] + "|" + a[1][0] + "|" + a[2][0] + "|");
-		System.out.println("  _______");
-		System.out.println("1||" + a[0][1] + "|" + a[1][1] + "|" + a[2][1] + "|");
-		System.out.println("  _______");
-		System.out.println("2||" + a[0][2] + "|" + a[1][2] + "|" + a[2][2] + "|");
-		System.out.println("  _______");
-		//Scan Args
-		System.out.println("Write X and Y coords");
-		string1 = scanner.nextLine();
-		arg1 = string1.charAt(0) - 48;
-		arg2 = string1.charAt(1) - 48;
-		System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-		//Check slot
-		if(a[arg1][arg2] == 0){
-			a[arg1][arg2] = 2;
-		}else{
-			System.out.println("This coords already owned, choose another coords ");
-			string1 = scanner.nextLine();
-			arg1 = string1.charAt(0) - 48;
-			arg2 = string1.charAt(1) - 48;
-			System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-			if(a[arg1][arg2] == 0){
-				a[arg1][arg2] = 2;
-			}else{
-				System.out.println("You lose your turn.");
+		//Check for draw
+		if(turnNumber == 9){
+			if(a[0][0] != 0 && a[0][1] != 0 && a[0][2] != 0 && a[1][0] != 0 && a[2][0] != 0 && a[1][1] != 0 && a[2][2] != 0 && a[1][2] != 0 && a[2][1] != 0){
+				System.out.println("Draw!");
+				fieldRenderer(a);
+				System.exit(0);
 			}
 		}
-		//Win params player 2
-		if(a[0][0] == 2 && a[0][1] == 2 && a[0][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0); 
-		}else if(a[1][0] == 2 && a[1][1] == 2 && a[1][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 2 && a[2][1] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 2 && a[1][0] == 2 && a[2][0] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][1] == 2 && a[1][1] == 2 && a[2][1] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][2] == 2 && a[1][2] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 2 && a[1][1] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 2 && a[1][1] == 2 && a[0][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}
-		//Turn 3
-		System.out.println("Player 1 turn");
-		//Field Render
-		System.out.println("  |0|1|2|");
-		System.out.println("  _______");
-		System.out.println("0||" + a[0][0] + "|" + a[1][0] + "|" + a[2][0] + "|");
-		System.out.println("  _______");
-		System.out.println("1||" + a[0][1] + "|" + a[1][1] + "|" + a[2][1] + "|");
-		System.out.println("  _______");
-		System.out.println("2||" + a[0][2] + "|" + a[1][2] + "|" + a[2][2] + "|");
-		System.out.println("  _______");
-		//Scan Args
-		System.out.println("Write X and Y coords");
-		string1 = scanner.nextLine();
-		arg1 = string1.charAt(0) - 48;
-		arg2 = string1.charAt(1) - 48;
-		System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-		//Check slot
-		if(a[arg1][arg2] == 0){
-			a[arg1][arg2] = 1;
-		}else{
-			System.out.println("This coords already owned, choose another coords ");
-			string1 = scanner.nextLine();
-			arg1 = string1.charAt(0) - 48;
-			arg2 = string1.charAt(1) - 48;
-			System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-			if(a[arg1][arg2] == 0){
-				a[arg1][arg2] = 1;
-			}else{
-				System.out.println("You lose your turn.");
-			}
-		}
-		//Win params player 1
-		if(a[0][0] == 1 && a[0][1] == 1 && a[0][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0); 
-		}else if(a[1][0] == 1 && a[1][1] == 1 && a[1][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 1 && a[2][1] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 1 && a[1][0] == 1 && a[2][0] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][1] == 1 && a[1][1] == 1 && a[2][1] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][2] == 1 && a[1][2] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 1 && a[1][1] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 1 && a[1][1] == 1 && a[0][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}
-		//Turn 4
-		System.out.println("Player 2 turn");
-		//Field Render
-		System.out.println("  |0|1|2|");
-		System.out.println("  _______");
-		System.out.println("0||" + a[0][0] + "|" + a[1][0] + "|" + a[2][0] + "|");
-		System.out.println("  _______");
-		System.out.println("1||" + a[0][1] + "|" + a[1][1] + "|" + a[2][1] + "|");
-		System.out.println("  _______");
-		System.out.println("2||" + a[0][2] + "|" + a[1][2] + "|" + a[2][2] + "|");
-		System.out.println("  _______");
-		//Scan Args
-		System.out.println("Write X and Y coords");
-		string1 = scanner.nextLine();
-		arg1 = string1.charAt(0) - 48;
-		arg2 = string1.charAt(1) - 48;
-		System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-		//Check slot
-		if(a[arg1][arg2] == 0){
-			a[arg1][arg2] = 2;
-		}else{
-			System.out.println("This coords already owned, choose another coords ");
-			string1 = scanner.nextLine();
-			arg1 = string1.charAt(0) - 48;
-			arg2 = string1.charAt(1) - 48;
-			System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-			if(a[arg1][arg2] == 0){
-				a[arg1][arg2] = 2;
-			}else{
-				System.out.println("You lose your turn.");
-			}
-		}
-		//Win params player 2
-		if(a[0][0] == 2 && a[0][1] == 2 && a[0][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0); 
-		}else if(a[1][0] == 2 && a[1][1] == 2 && a[1][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 2 && a[2][1] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 2 && a[1][0] == 2 && a[2][0] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][1] == 2 && a[1][1] == 2 && a[2][1] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][2] == 2 && a[1][2] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 2 && a[1][1] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 2 && a[1][1] == 2 && a[0][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}
-		//Turn 5
-		System.out.println("Player 1 turn");
-		//Field Render
-		System.out.println("  |0|1|2|");
-		System.out.println("  _______");
-		System.out.println("0||" + a[0][0] + "|" + a[1][0] + "|" + a[2][0] + "|");
-		System.out.println("  _______");
-		System.out.println("1||" + a[0][1] + "|" + a[1][1] + "|" + a[2][1] + "|");
-		System.out.println("  _______");
-		System.out.println("2||" + a[0][2] + "|" + a[1][2] + "|" + a[2][2] + "|");
-		System.out.println("  _______");
-		//Scan Args
-		System.out.println("Write X and Y coords");
-		string1 = scanner.nextLine();
-		arg1 = string1.charAt(0) - 48;
-		arg2 = string1.charAt(1) - 48;
-		System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-		//Check slot
-		if(a[arg1][arg2] == 0){
-			a[arg1][arg2] = 1;
-		}else{
-			System.out.println("This coords already owned, choose another coords ");
-			string1 = scanner.nextLine();
-			arg1 = string1.charAt(0) - 48;
-			arg2 = string1.charAt(1) - 48;
-			System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-			if(a[arg1][arg2] == 0){
-				a[arg1][arg2] = 1;
-			}else{
-				System.out.println("You lose your turn.");
-			}
-		}
-		//Win params player 1
-		if(a[0][0] == 1 && a[0][1] == 1 && a[0][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0); 
-		}else if(a[1][0] == 1 && a[1][1] == 1 && a[1][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 1 && a[2][1] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 1 && a[1][0] == 1 && a[2][0] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][1] == 1 && a[1][1] == 1 && a[2][1] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][2] == 1 && a[1][2] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 1 && a[1][1] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 1 && a[1][1] == 1 && a[0][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}
-		//Turn 6
-		System.out.println("Player 2 turn");
-		//Field Render
-		System.out.println("  |0|1|2|");
-		System.out.println("  _______");
-		System.out.println("0||" + a[0][0] + "|" + a[1][0] + "|" + a[2][0] + "|");
-		System.out.println("  _______");
-		System.out.println("1||" + a[0][1] + "|" + a[1][1] + "|" + a[2][1] + "|");
-		System.out.println("  _______");
-		System.out.println("2||" + a[0][2] + "|" + a[1][2] + "|" + a[2][2] + "|");
-		System.out.println("  _______");
-		//Scan Args
-		System.out.println("Write X and Y coords");
-		string1 = scanner.nextLine();
-		arg1 = string1.charAt(0) - 48;
-		arg2 = string1.charAt(1) - 48;
-		System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-		//Check slot
-		if(a[arg1][arg2] == 0){
-			a[arg1][arg2] = 2;
-		}else{
-			System.out.println("This coords already owned, choose another coords ");
-			string1 = scanner.nextLine();
-			arg1 = string1.charAt(0) - 48;
-			arg2 = string1.charAt(1) - 48;
-			System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-			if(a[arg1][arg2] == 0){
-				a[arg1][arg2] = 2;
-			}else{
-				System.out.println("You lose your turn.");
-			}
-		}
-		//Win params player 2
-		if(a[0][0] == 2 && a[0][1] == 2 && a[0][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0); 
-		}else if(a[1][0] == 2 && a[1][1] == 2 && a[1][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 2 && a[2][1] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 2 && a[1][0] == 2 && a[2][0] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][1] == 2 && a[1][1] == 2 && a[2][1] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][2] == 2 && a[1][2] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 2 && a[1][1] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 2 && a[1][1] == 2 && a[0][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}
-		//Turn 7
-		System.out.println("Player 1 turn");
-		//Field Render
-		System.out.println("  |0|1|2|");
-		System.out.println("  _______");
-		System.out.println("0||" + a[0][0] + "|" + a[1][0] + "|" + a[2][0] + "|");
-		System.out.println("  _______");
-		System.out.println("1||" + a[0][1] + "|" + a[1][1] + "|" + a[2][1] + "|");
-		System.out.println("  _______");
-		System.out.println("2||" + a[0][2] + "|" + a[1][2] + "|" + a[2][2] + "|");
-		System.out.println("  _______");
-		//Scan Args
-		System.out.println("Write X and Y coords");
-		string1 = scanner.nextLine();
-		arg1 = string1.charAt(0) - 48;
-		arg2 = string1.charAt(1) - 48;
-		System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-		//Check slot
-		if(a[arg1][arg2] == 0){
-			a[arg1][arg2] = 1;
-		}else{
-			System.out.println("This coords already owned, choose another coords ");
-			string1 = scanner.nextLine();
-			arg1 = string1.charAt(0) - 48;
-			arg2 = string1.charAt(1) - 48;
-			System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-			if(a[arg1][arg2] == 0){
-				a[arg1][arg2] = 1;
-			}else{
-				System.out.println("You lose your turn.");
-			}
-		}
-		//Win params player 1
-		if(a[0][0] == 1 && a[0][1] == 1 && a[0][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0); 
-		}else if(a[1][0] == 1 && a[1][1] == 1 && a[1][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 1 && a[2][1] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 1 && a[1][0] == 1 && a[2][0] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][1] == 1 && a[1][1] == 1 && a[2][1] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][2] == 1 && a[1][2] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 1 && a[1][1] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 1 && a[1][1] == 1 && a[0][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}
-		//Turn 6
-		System.out.println("Player 2 turn");
-		//Field Render
-		System.out.println("  |0|1|2|");
-		System.out.println("  _______");
-		System.out.println("0||" + a[0][0] + "|" + a[1][0] + "|" + a[2][0] + "|");
-		System.out.println("  _______");
-		System.out.println("1||" + a[0][1] + "|" + a[1][1] + "|" + a[2][1] + "|");
-		System.out.println("  _______");
-		System.out.println("2||" + a[0][2] + "|" + a[1][2] + "|" + a[2][2] + "|");
-		System.out.println("  _______");
-		//Scan Args
-		System.out.println("Write X and Y coords");
-		string1 = scanner.nextLine();
-		arg1 = string1.charAt(0) - 48;
-		arg2 = string1.charAt(1) - 48;
-		System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-		//Check slot
-		if(a[arg1][arg2] == 0){
-			a[arg1][arg2] = 2;
-		}else{
-			System.out.println("This coords already owned, choose another coords ");
-			string1 = scanner.nextLine();
-			arg1 = string1.charAt(0) - 48;
-			arg2 = string1.charAt(1) - 48;
-			System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-			if(a[arg1][arg2] == 0){
-				a[arg1][arg2] = 2;
-			}else{
-				System.out.println("You lose your turn.");
-			}
-		}
-		//Win params player 2
-		if(a[0][0] == 2 && a[0][1] == 2 && a[0][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0); 
-		}else if(a[1][0] == 2 && a[1][1] == 2 && a[1][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 2 && a[2][1] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 2 && a[1][0] == 2 && a[2][0] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][1] == 2 && a[1][1] == 2 && a[2][1] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][2] == 2 && a[1][2] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 2 && a[1][1] == 2 && a[2][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 2 && a[1][1] == 2 && a[0][2] == 2){
-			System.out.println("Player 2 has won the game!");
-			System.exit(0);
-		}
-		//Turn 9
-		System.out.println("Player 1 turn");
-		//Field Render
-		System.out.println("  |0|1|2|");
-		System.out.println("  _______");
-		System.out.println("0||" + a[0][0] + "|" + a[1][0] + "|" + a[2][0] + "|");
-		System.out.println("  _______");
-		System.out.println("1||" + a[0][1] + "|" + a[1][1] + "|" + a[2][1] + "|");
-		System.out.println("  _______");
-		System.out.println("2||" + a[0][2] + "|" + a[1][2] + "|" + a[2][2] + "|");
-		System.out.println("  _______");
-		//Scan Args
-		System.out.println("Write X and Y coords");
-		string1 = scanner.nextLine();
-		arg1 = string1.charAt(0) - 48;
-		arg2 = string1.charAt(1) - 48;
-		System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-		//Check slot
-		if(a[arg1][arg2] == 0){
-			a[arg1][arg2] = 1;
-		}else{
-			System.out.println("This coords already owned, choose another coords ");
-			string1 = scanner.nextLine();
-			arg1 = string1.charAt(0) - 48;
-			arg2 = string1.charAt(1) - 48;
-			System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-			if(a[arg1][arg2] == 0){
-				a[arg1][arg2] = 1;
-			}else{
-				System.out.println("You lose your turn.");
-			}
-		}
-		//Win params player 1
-		if(a[0][0] == 1 && a[0][1] == 1 && a[0][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0); 
-		}else if(a[1][0] == 1 && a[1][1] == 1 && a[1][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 1 && a[2][1] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 1 && a[1][0] == 1 && a[2][0] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][1] == 1 && a[1][1] == 1 && a[2][1] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][2] == 1 && a[1][2] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[0][0] == 1 && a[1][1] == 1 && a[2][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}else if(a[2][0] == 1 && a[1][1] == 1 && a[0][2] == 1){
-			System.out.println("Player 1 has won the game!");
-			System.exit(0);
-		}
-		//If draw
-		if(a[0][0] != 0 && a[0][1] != 0 && a[0][2] != 0 && a[1][0] != 0 && a[2][0] != 0 && a[1][1] != 0 && a[2][2] != 0 && a[1][2] != 0 && a[2][1] != 0){
-			System.out.println("Draw!");
-			System.exit(0);
-		}	
 	}
 }
