@@ -4,13 +4,14 @@ import java.util.Scanner;
 
 public class TicTacToe {
 	public static int[][] Field = new int[3][3];
+	public static int winner = 0;
 	public static int player = 1;
 	public static int turn = 1;
 	public static final Scanner scanner = new Scanner(System.in);
 	public static String string;
 	public static void main(String[] args){
+		Screen.Frame();
 		System.out.println("Rules: First player = 1; Second player = 2; Empty space = 0.");
-		System.out.println("Please, don`t use any symbols, but 0 and 1 and 2.");
 		turns();
 	}
 
@@ -61,20 +62,46 @@ public class TicTacToe {
 		}
 	}
 	
+	public static boolean checkCoords(String string){
+		if(!string.contains("0")){
+			if(!string.contains("1")){
+				if(!string.contains("2")){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
 	public static void makeTurn(){
 		//Scan Args
 		System.out.println("Write X and Y coords");
 		string = scanner.nextLine();
-		int arg1 = string.charAt(0) - 48;
-		int arg2 = string.charAt(1) - 48;
-		System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
-		//Check slot
-		if(Field[arg1][arg2] == 0){
-			Field[arg1][arg2] = player;
-		}else{
-			System.out.println("This coords already owned, choose another coords ");
-			fieldRenderer();
+		if(checkCoords(string)){
+			int arg1 = string.charAt(0) - 48;
+			int arg2 = string.charAt(1) - 48;
+			System.out.println("X coord = " + arg1 + " Y coord = " + arg2);
+			//Check slot
+			if(Field[arg1][arg2] == 0){
+				Field[arg1][arg2] = player;
+			}else{
+				System.out.println("This coords have already owned, choose another coords ");
+				fieldRenderer();
+				makeTurn();
+			}
+		}else {
+			System.out.println("Wrong coords");
 			makeTurn();
+		}
+	}
+	
+	public static void checkForDraw(){
+		if(turn == 9){
+			if(Field[0][0] != 0 && Field[0][1] != 0 && Field[0][2] != 0 && Field[1][0] != 0 && Field[2][0] != 0 && Field[1][1] != 0 && Field[2][2] != 0 && Field[1][2] != 0 && Field[2][1] != 0){
+				System.out.println("Draw!");
+				fieldRenderer();
+				System.exit(0);
+			}
 		}
 	}
 	
@@ -89,13 +116,7 @@ public class TicTacToe {
 			checkForWin();
 		}
 		//Check for draw
-		if(turn == 9){
-			if(Field[0][0] != 0 && Field[0][1] != 0 && Field[0][2] != 0 && Field[1][0] != 0 && Field[2][0] != 0 && Field[1][1] != 0 && Field[2][2] != 0 && Field[1][2] != 0 && Field[2][1] != 0){
-				System.out.println("Draw!");
-				fieldRenderer();
-				System.exit(0);
-			}
-		}
+		checkForDraw();
 		//Main Game Loop
 		turn++;
 		if(player == 1)player++;
